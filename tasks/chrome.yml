@@ -1,3 +1,8 @@
+ ---
+ - hosts: localhost
+   connection: local
+   become: true
+   
 - name: software | google-chrome | add repository key
   apt_key:
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub
