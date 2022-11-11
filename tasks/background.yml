@@ -1,3 +1,8 @@
+    ---
+ - hosts: localhost
+   connection: local
+   become: true
+   
    - name: copy wallpaper file
      copy:
        src: files/files/Stargate.jpg
