@@ -11,5 +11,5 @@
   tasks:
     - include: tasks/cron.yml
     - include: tasks/packages.yml
-    - include: task/chrome.yml
+   # - include: task/chrome.yml
     - include: task/background.yml
