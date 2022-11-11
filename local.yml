@@ -16,7 +16,7 @@
 
     - name: copy wallpaper file
       copy:
-        src: files/files/Stargate.jpg
+        src: files/files/Stargate.png
         dest: /usr/share/backgrounds/ansible-wallpaper.png
         owner: root
         group: root
