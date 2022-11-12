@@ -15,7 +15,7 @@
    
     - name: copy wallpaper file
       copy:
-        src: files/files/Stargate.png
+        src: /files/Stargate.png
         dest: /usr/share/backgrounds/Stargate.png
         owner: root
         group: root
