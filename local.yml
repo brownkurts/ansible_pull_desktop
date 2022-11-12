@@ -12,8 +12,7 @@
     - include: tasks/cron.yml
     - include: tasks/packages.yml
    # - include: task/chrome.yml
-   # - include: task/background.yml
-
+   
     - name: copy wallpaper file
       copy:
         src: files/files/Stargate.png
