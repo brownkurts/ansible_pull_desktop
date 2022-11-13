@@ -11,7 +11,7 @@
         key: "/org/gnome/desktop/background/picture-uri"
         value: "'file:///usr/share/backgrounds/Stargate.png'"
  
-   # - name: set wallpaper position
+    #- name: set wallpaper position
     #  become_user: kurt
     #  dconf:
      #   key: "/org/gnome/desktop/background/picture-options"
