@@ -17,7 +17,7 @@
       copy:
         src: files/Stargate.png
         dest: /usr/share/backgrounds/Stargate.png
-        owner: kurt
+        owner: root
         group: root
  
     - name: set wallpaper
