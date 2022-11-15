@@ -11,6 +11,8 @@
       dconf:
         key: "/org/gnome/desktop/background/picture-uri"
         value: "'file:///usr/share/backgrounds/daedalus.png'"
+
+        
    
    # - name: set wallpaper position
     #  become_user: kurt
