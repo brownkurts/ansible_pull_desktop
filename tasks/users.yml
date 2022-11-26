@@ -3,10 +3,10 @@
     name: velociraptor
     system: yes
 
-  - name: set up sudo for ansible user
-    copy:
-      src: files/sudoer_velociraptor
-      dest: /etc/sudoers.d/velociraptor
-      owner: root
-      group: root
-      mode: 0440
+- name: set up sudo for ansible user
+  copy:
+    src: files/sudoer_velociraptor
+    dest: /etc/sudoers.d/velociraptor
+    owner: root
+    group: root
+    mode: 0440
