@@ -1,12 +1,12 @@
 - name: add ansible user
   user:
-    name: velociraptor
+    name: ansible
     system: yes
 
 - name: set up sudo for ansible user
   copy:
-    src: files/sudoer_velociraptor
-    dest: /etc/sudoers.d/velociraptor
+    src: files/sudoer_ansible
+    dest: /etc/sudoers.d/ansible
     owner: root
     group: root
     mode: 0440
