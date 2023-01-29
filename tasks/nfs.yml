@@ -1,12 +1,12 @@
 ---
 - name: Mount NFS Shares
-    hosts: folders
-    become: yes
-    vars:
-      nfsmounts:
-        - {  path: "/mnt/Public", src: "192.168.2.22:/mnt/Public" }
-       - {  path: "/mnt/unraid", src: "192.168.2.21:/mnt/user/unraid" }
-        - {  path: "/mnt/media", src: "192.168.2.21:/mnt/user/Media" }
+  hosts: folders
+  become: yes
+  vars:
+    nfsmounts:
+      - {  path: "/mnt/Public", src: "192.168.2.22:/mnt/Public" }
+      - {  path: "/mnt/unraid", src: "192.168.2.21:/mnt/user/unraid" }
+      - {  path: "/mnt/media", src: "192.168.2.21:/mnt/user/Media" }
       
   tasks:
       - name: mount the nfsshare in client side
