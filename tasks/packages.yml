@@ -5,4 +5,7 @@
       - mc
       - net-tools
       - python3-psutil
+      - nfs-common
+      - nano
+    state: latest
       
