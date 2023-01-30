@@ -1,7 +1,7 @@
     - name: copy wallpaper file
       copy:
         src: files/daedalus.png
-        dest: /usr/share/backgrounds/daedalus.png
+        dest: /usr/share/backgrounds/Stargate.png
         owner: root
         group: root
   
@@ -10,4 +10,4 @@
       become_user: kurt
       dconf:
         key: "/org/gnome/desktop/background/picture-uri"
-        value: "'file:///usr/share/backgrounds/daedalus.png'"
+        value: "'file:///usr/share/backgrounds/Stargate.png'"
