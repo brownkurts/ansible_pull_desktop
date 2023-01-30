@@ -1,6 +1,6 @@
     - name: copy wallpaper file
       copy:
-        src: files/daedalus.png
+        src: files/Stargate.png
         dest: /usr/share/backgrounds/Stargate.png
         owner: root
         group: root
