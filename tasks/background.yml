@@ -8,5 +8,5 @@
 - name: set wallpaper
   become_user: kurt
   dconf:
-    key: "/org/gnome/desktop/background/picture-uri"
+    key: "/org/gnome/desktop/background"
     value: "'file:///usr/share/backgrounds/daedalus.png'"
