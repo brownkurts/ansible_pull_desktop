@@ -5,7 +5,6 @@
     owner: root
     group: root
   
-  
 - name: set wallpaper
   become_user: kurt
   dconf:
