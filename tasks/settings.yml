@@ -1,5 +1,5 @@
 - name: set wallpaper
-    become_user: kurt
-    dconf: 
-      key: "org/gnome/desktop/interface"
-      value: "color-scheme='prefer-dark'gtk-theme='Yaru-dark' icon-theme='Yaru'"
+  become_user: kurt
+  dconf: 
+    key: "org/gnome/desktop/interface"
+    value: "color-scheme='prefer-dark'gtk-theme='Yaru-dark' icon-theme='Yaru'"
