@@ -5,7 +5,7 @@
     owner: root
     group: root
 
-  - name: set wallpaper
+- name: set wallpaper
     become_user: jay
     dconf:
     key: "/org/gnome/desktop/background/picture-uri"
