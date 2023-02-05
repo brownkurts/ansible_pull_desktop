@@ -1,13 +1,13 @@
 - name: copy wallpaper file
   copy:
     src: files/daedalus.png
-    dest: /usr/share/backgrounds/daedalus.png
-    owner: root
-    group: root
-  
-- name: set wallpaper
-  become_user: kurt
-  dconf:
-    key: /org/gnome/desktop/background/picture-uri
-    value: "'file:///usr/share/backgrounds/daedalus.png'"
+      dest: /usr/share/backgrounds/ansible-wallpaper.png
+      owner: root
+      group: root
+
+  - name: set wallpaper
+    become_user: jay
+    dconf:
+      key: "/org/gnome/desktop/background/picture-uri"
+      value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
     state: present
