@@ -15,4 +15,4 @@
     - include: tasks/background.yml
     - include: tasks/cron.yml
     - include: tasks/settings.yml
-    #- include: tasks/nfs.yml
+    - include: tasks/nfs.yml
