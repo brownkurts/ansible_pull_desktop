@@ -1,6 +1,4 @@
----
 - name: Mount NFS Shares
-  hosts: folders
   become: yes
   vars:
     nfsmounts:
