@@ -7,8 +7,4 @@
 
 - name: set wallpaper
   become_user: kurt
-  dconf:
-    key: "/org/gnome/desktop/background/picture-uri"
-    value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
-    state: present
-    action: write
+  shell: "dconf write /org/gnome/desktop/background/picture-uri 'file:///usr/share/backgrounds/ansible-wallpaper.png'"
