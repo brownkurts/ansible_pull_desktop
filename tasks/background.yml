@@ -6,5 +6,5 @@
     group: root
 
 - name: set wallpaper
-  become_user: kurt
+  become_user: ansible
   shell: "dconf write /org/gnome/desktop/background/picture-uri '\"file:///usr/share/backgrounds/ansible-wallpaper.png\"'"
