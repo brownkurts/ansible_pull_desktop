@@ -7,4 +7,4 @@
 
 - name: set wallpaper
   become_user: kurt
-  shell: "gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/ansible-wallpaper.png"
+  shell: "dbus-send --session --dest=org.gnome.Shell --print-reply --type=method_call /org/gnome/Shell org.gnome.Shell.Eval string:'imports.gi.GLib.spawn_command_line_async(\"gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/ansible-wallpaper.png'\")'"
