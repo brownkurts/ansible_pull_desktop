@@ -3,7 +3,7 @@
     src: files/daedalus.png
     dest: /usr/share/backgrounds/ansible-wallpaper.png
     owner: ansible
-    group: root
+    group: ansible
 
 - name: set wallpaper
   become_user: ansible
