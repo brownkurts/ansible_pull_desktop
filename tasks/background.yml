@@ -2,9 +2,11 @@
   copy:
     src: files/daedalus.png
     dest: /usr/share/backgrounds/ansible-wallpaper.png
-    owner: kurt
-    group: kurt
+    owner: root
+    group: root
 
 - name: set wallpaper
   become_user: kurt
-  shell: "dconf write /org/gnome/desktop/background/picture-uri '\"file:///usr/share/backgrounds/ansible-wallpaper.png\"'"
+  dconf: 
+    key: "/org/gnome/desktop/background/picture-uri" 
+    value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
