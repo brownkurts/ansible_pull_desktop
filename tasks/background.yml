@@ -11,3 +11,4 @@
     key: "/org/gnome/desktop/background/picture-uri"
     value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
     state: present
+    action: write
