@@ -2,7 +2,7 @@
   copy:
     src: files/daedalus.png
     dest: /usr/share/backgrounds/ansible-wallpaper.png
-    owner: root
+    owner: ansible
     group: root
 
 - name: set wallpaper
