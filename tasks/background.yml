@@ -7,4 +7,4 @@
 
 - name: set wallpaper
   become_user: kurt
-  shell: "gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults --type string --set /desktop/gnome/background/picture_filename /usr/share/backgrounds/ansible-wallpaper.png"
+  shell: "gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/ansible-wallpaper.png"
