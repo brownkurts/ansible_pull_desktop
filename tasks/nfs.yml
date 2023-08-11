@@ -1,6 +1,5 @@
 ---
 - name: Mount NFS Shares
-  become: yes
   vars:
     nfsmounts:
       - path: "/mnt/Public"
