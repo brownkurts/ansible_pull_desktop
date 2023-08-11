@@ -13,8 +13,8 @@
     - include: tasks/cron.yml
     - include: tasks/packages.yml
     - include: tasks/chrome.yml
-    #- include: tasks/background.yml
-    - include: tasks/settings.yml
+    - include: tasks/background.yml
+    #- include: tasks/settings.yml
     #- include: tasks/nfs.yml
 
 - hosts: all
