@@ -1,3 +1,4 @@
+---
 - name: Mount NFS Shares
   become: yes
   vars:
@@ -16,7 +17,7 @@
         state: directory
       with_items: "{{ nfsmounts }}"
 
-    - name: Mount the nfsshare in client side
+    - name: Mount the nfsshare in the client side
       mount:
         fstype: nfs
         opts: defaults
@@ -26,4 +27,3 @@
         src: "{{ item.src }}"
         path: "{{ item.path }}"
       with_items: "{{ nfsmounts }}"
-
