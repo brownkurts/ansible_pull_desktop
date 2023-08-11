@@ -1,20 +1,19 @@
+---
 - name: Mount NFS Shares
   vars:
     nfsmounts:
-      - path: "/mnt/Public"
-        src: "192.168.2.22:/mnt/Public"
-      - path: "/mnt/unraid"
-        src: "192.168.2.21:/mnt/user/unraid"
-      - path: "/mnt/media"
-        src: "192.168.2.21:/mnt/user/Media"
-
+      - path: /mnt/Public
+        src: 192.168.2.22:/mnt/Public
+      - path: /mnt/unraid
+        src: 192.168.2.21:/mnt/user/unraid
+      - path: /mnt/media
+        src: 192.168.2.21:/mnt/user/Media
   tasks:
     - name: Create mount directories
       file:
         path: "{{ item.path }}"
         state: directory
       with_items: "{{ nfsmounts }}"
-
     - name: Mount the nfsshare in the client side
       mount:
         fstype: nfs
