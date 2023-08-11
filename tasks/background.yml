@@ -5,8 +5,8 @@
     owner: root
     group: root
 
-- name: set wallpaper using command module
+- name: set wallpaper
   become_user: kurt
-  command: dconf write "/org/gnome/desktop/background/picture-uri" "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
-
-
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "file:///usr/share/backgrounds/ansible-wallpaper.png"
