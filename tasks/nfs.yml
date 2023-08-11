@@ -1,4 +1,3 @@
----
 - name: Mount NFS Shares
   become: yes
   vars:
