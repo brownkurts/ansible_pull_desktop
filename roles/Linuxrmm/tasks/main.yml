@@ -1,4 +1,3 @@
----
 - name: Check if LinuxRMM agent is installed
   stat:
     path: "{{ rmm_installed_check }}"
@@ -19,13 +18,13 @@
   when: not rmm_agent.stat.exists
 
 - name: Run installation script
-  command:
-    cmd: >
-      {{ linuxrmm_install_dir }}/rmmagent-linux.sh install
-      '{{ rmm_arch }}' '{{ mesh_url }}' '{{ api_url }}'
-      '{{ param_4 }}' '{{ param_5 }}' '{{ auth_key }}' '{{ device_name }}'
+  command: >
+    "{{ linuxrmm_install_dir }}/rmmagent-linux.sh" install
+    "{{ rmm_arch }}" "{{ mesh_url }}" "{{ api_url }}"
+    "{{ param_4 }}" "{{ param_5 }}" "{{ auth_key }}" "{{ device_name }}"
   args:
     chdir: "{{ linuxrmm_install_dir }}"
   register: install_output
   when: not rmm_agent.stat.exists
+
 
