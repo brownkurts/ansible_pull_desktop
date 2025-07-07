@@ -1,15 +1,29 @@
-- name: set wallpaper
-  become_user: kurt
-  dconf: 
-    key: "org/gnome/desktop/interface"
-    value: "color-scheme='prefer-dark'gtk-theme='Yaru-dark' icon-theme='Yaru'"
-
-- name: Set Ubuntu Dock position to bottom using dconf
+- name: Set GTK theme
   become: true
-  become_user: "{{ ansible_user | default('your_username') }}"
-  ansible.builtin.shell: |
-    dbus-launch dconf write /org/gnome/shell/extensions/dash-to-dock/dock-position "'BOTTOM'"
-  environment:
-    DISPLAY: ":0"
-    XAUTHORITY: "/home/{{ ansible_user | default('kurt') }}/.Xauthority"
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Yaru-dark'"
+
+- name: Set icon theme
+  become: true
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/desktop/interface/icon-theme"
+    value: "'Yaru'"
+
+- name: Set color scheme to prefer dark
+  become: true
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+
+- name: Set Dock position to bottom using gsettings
+  become: true
+  become_user: kurt
+  shell: |
+    export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u kurt)/bus"
+    gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
+
 
