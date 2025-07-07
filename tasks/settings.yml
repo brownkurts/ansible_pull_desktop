@@ -3,3 +3,13 @@
   dconf: 
     key: "org/gnome/desktop/interface"
     value: "color-scheme='prefer-dark'gtk-theme='Yaru-dark' icon-theme='Yaru'"
+
+- name: Set Ubuntu Dock position to bottom using dconf
+  become: true
+  become_user: "{{ ansible_user | default('your_username') }}"
+  ansible.builtin.shell: |
+    dbus-launch dconf write /org/gnome/shell/extensions/dash-to-dock/dock-position "'BOTTOM'"
+  environment:
+    DISPLAY: ":0"
+    XAUTHORITY: "/home/{{ ansible_user | default('kurt') }}/.Xauthority"
+
