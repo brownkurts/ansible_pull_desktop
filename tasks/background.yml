@@ -1,7 +1,7 @@
 - name: copy wallpaper file
   copy:
     src: files/Stargate.png
-    dest: /usr/share/backgrounds/ansible-wallpaper.png
+    dest: /usr/share/backgrounds/ansible-wallpaper2.png
     owner: root
     group: root
     mode: 0644
@@ -10,4 +10,4 @@
   become_user: kurt
   dconf:
     key: "/org/gnome/desktop/background/picture-uri"
-    value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
+    value: "'file:///usr/share/backgrounds/ansible-wallpaper2.png'"
