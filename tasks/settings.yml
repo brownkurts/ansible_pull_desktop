@@ -3,28 +3,25 @@
   become_user: kurt
   dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "Yaru-dark"
+    value: "'Yaru-dark'"
 
 - name: Set icon theme
   become: true
   become_user: kurt
   dconf:
     key: "/org/gnome/desktop/interface/icon-theme"
-    value: "Yaru"
+    value: "'Yaru'"
 
 - name: Set color scheme to prefer dark
   become: true
   become_user: kurt
   dconf:
     key: "/org/gnome/desktop/interface/color-scheme"
-    value: "prefer-dark"
+    value: "'prefer-dark'"
 
 - name: Set Dock position to bottom
   become: true
   become_user: kurt
   dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
-    value: "BOTTOM"
-
-
-
+    value: "'BOTTOM'"
