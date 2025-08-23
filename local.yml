@@ -45,5 +45,4 @@
             purge: yes
           when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
 
-  roles:
-    - Linuxrmm
+ 
