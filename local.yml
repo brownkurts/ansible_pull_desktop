@@ -10,52 +10,46 @@
       changed_when: false
 
   tasks:
-    - name: Include user tasks
-      include_tasks: tasks/users.yml
+    - block:
+        - name: Include user tasks
+          include_tasks: tasks/users.yml
 
-    - name: Include cron tasks
-      include_tasks: tasks/cron.yml
+        - name: Include cron tasks
+          include_tasks: tasks/cron.yml
 
-    - name: Include package tasks
-      include_tasks: tasks/packages.yml
+        - name: Include package tasks
+          include_tasks: tasks/packages.yml
 
-    - name: Include Chrome tasks
-      include_tasks: tasks/chrome.yml
+        - name: Include Chrome tasks
+          include_tasks: tasks/chrome.yml
 
-    - name: Include background tasks
-      include_tasks: tasks/background.yml
+        - name: Include background tasks
+          include_tasks: tasks/background.yml
 
-    # - name: Include settings tasks
-    #   include_tasks: tasks/settings.yml
+        # - name: Include settings tasks
+        #   include_tasks: tasks/settings.yml
 
-    # - name: Include NFS tasks
-    #   include_tasks: tasks/nfs.yml
+        # - name: Include NFS tasks
+        #   include_tasks: tasks/nfs.yml
 
-    - name: Cleanup package cache (Debian and Ubuntu)
-      apt:
-        autoclean: yes
-      changed_when: false
-      tags: always
-      when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
+        - name: Cleanup package cache (Debian and Ubuntu)
+          apt:
+            autoclean: yes
+          changed_when: false
+          when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
 
-    - name: Autoremove orphan packages (Debian and Ubuntu)
-      apt:
-        autoremove: yes
-        purge: yes
-      tags: always
-      when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
+        - name: Autoremove orphan packages (Debian and Ubuntu)
+          apt:
+            autoremove: yes
+            purge: yes
+          when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
 
-    - name: Send completion alert
-      include_tasks: playbooks/send_completion_alert.yml
-      tags: always
-      when: task_failed is not defined
+      rescue:
+        - name: Send failure alert
+          include_tasks: playbooks/send_failure_alert.yml
+          tags: always
 
-    - name: Send failure alert
-      include_tasks: playbooks/send_failure_alert.yml
-      tags: always
-      when:
-        - task_failed is defined
-        - task_failed == true
-
-  roles:
-  - Linuxrmm
+      always:
+        - name: Send completion alert
+          include_tasks: playbooks/send_completion_alert.yml
+          tags: always
