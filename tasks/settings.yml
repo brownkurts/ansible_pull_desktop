@@ -25,3 +25,10 @@
   dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
     value: "'BOTTOM'"
+
+- name: Set wallpaper scaling to stretched
+  become: true
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/desktop/background/picture-options"
+    value: "stretched"
