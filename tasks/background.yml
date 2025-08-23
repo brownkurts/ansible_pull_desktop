@@ -6,17 +6,16 @@
     group: root
     mode: 0644
 
-- name: Set wallpaper (light mode)
+- name: Set wallpaper for light mode
   become: true
   become_user: kurt
   dconf:
     key: "/org/gnome/desktop/background/picture-uri"
     value: "file:///usr/share/backgrounds/ansible-wallpaper2.png"
 
-- name: Set wallpaper (dark mode)
+- name: Set wallpaper for dark mode
   become: true
   become_user: kurt
   dconf:
     key: "/org/gnome/desktop/background/picture-uri-dark"
     value: "file:///usr/share/backgrounds/ansible-wallpaper2.png"
-
