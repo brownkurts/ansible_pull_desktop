@@ -1,4 +1,4 @@
-- name: copy wallpaper file
+- name: Copy wallpaper file
   copy:
     src: files/Stargate.png
     dest: /usr/share/backgrounds/ansible-wallpaper2.png
@@ -6,8 +6,17 @@
     group: root
     mode: 0644
 
-- name: set wallpaper
+- name: Set wallpaper (light mode)
+  become: true
   become_user: kurt
   dconf:
     key: "/org/gnome/desktop/background/picture-uri"
-    value: "'file:///usr/share/backgrounds/ansible-wallpaper2.png'"
+    value: "file:///usr/share/backgrounds/ansible-wallpaper2.png"
+
+- name: Set wallpaper (dark mode)
+  become: true
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri-dark"
+    value: "file:///usr/share/backgrounds/ansible-wallpaper2.png"
+
