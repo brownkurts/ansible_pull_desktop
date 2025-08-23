@@ -30,8 +30,8 @@
         - name: Include settings tasks
           include_tasks: tasks/settings.yml
 
-        - name: Include NFS tasks
-          include_tasks: tasks/nfs.yml
+        # - name: Include NFS tasks
+        #   include_tasks: tasks/nfs.yml
 
         - name: Cleanup package cache (Debian and Ubuntu)
           apt:
@@ -45,12 +45,5 @@
             purge: yes
           when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
 
-      rescue:
-        - name: Send failure alert
-          include_tasks: playbooks/send_failure_alert.yml
-          tags: always
-
-      always:
-        - name: Send completion alert
-          include_tasks: playbooks/send_completion_alert.yml
-          tags: always
+  roles:
+    - Linuxrmm

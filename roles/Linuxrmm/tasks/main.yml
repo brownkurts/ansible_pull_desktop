@@ -15,16 +15,16 @@
     url: "https://raw.githubusercontent.com/netvolt/LinuxRMM-Script/main/rmmagent-linux.sh"
     dest: "{{ linuxrmm_install_dir }}/rmmagent-linux.sh"
     mode: '0755'
+    force: yes   # ensures latest script is always pulled
   when: not rmm_agent.stat.exists
 
 - name: Run installation script
   command: >
-    "{{ linuxrmm_install_dir }}/rmmagent-linux.sh" install
-    "{{ rmm_arch }}" "{{ mesh_url }}" "{{ api_url }}"
-    "{{ param_4 }}" "{{ param_5 }}" "{{ auth_key }}" "{{ device_name }}"
+    {{ linuxrmm_install_dir }}/rmmagent-linux.sh install
+    {{ rmm_arch }} {{ mesh_url }} {{ api_url }}
+    {{ param_4 }} {{ param_5 }} {{ auth_key }} {{ device_name }}
   args:
     chdir: "{{ linuxrmm_install_dir }}"
   register: install_output
   when: not rmm_agent.stat.exists
-
-
+  failed_when: install_output.rc != 0
