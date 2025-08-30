@@ -11,47 +11,11 @@
   set_fact:
     remoteapps_users_effective: "{{ remoteapps_users | default([ansible_user | default('ubuntu')]) }}"
 
-- name: Loop over users and create per-user dirs
+- name: Per-user RemoteApps setup
+  include_tasks: per_user.yml
   loop: "{{ remoteapps_users_effective }}"
-  loop_control: { loop_var: target_user }
-  block:
-    - name: Ensure per-user bin dir exists
-      file:
-        path: "/home/{{ target_user }}/.local/bin/remoteapps"
-        state: directory
-        owner: "{{ target_user }}"
-        group: "{{ target_user }}"
-        mode: "0700"
-
-    - name: Ensure per-user applications dir exists
-      file:
-        path: "/home/{{ target_user }}/.local/share/applications"
-        state: directory
-        owner: "{{ target_user }}"
-        group: "{{ target_user }}"
-        mode: "0755"
-
-    - name: Create wrapper scripts for each RemoteApp
-      template:
-        src: "remoteapp.sh.j2"
-        dest: "/home/{{ target_user }}/.local/bin/remoteapps/{{ item.name | lower | regex_replace('[^a-z0-9]+','-') }}.sh"
-        owner: "{{ target_user }}"
-        group: "{{ target_user }}"
-        mode: "0700"
-      loop: "{{ remoteapps }}"
-      vars:
-        ra_user: "{{ target_user }}"
-
-    - name: Create .desktop launchers for each RemoteApp
-      template:
-        src: "remoteapp.desktop.j2"
-        dest: "/home/{{ target_user }}/.local/share/applications/{{ item.name | lower | regex_replace('[^a-z0-9]+','-') }}.desktop"
-        owner: "{{ target_user }}"
-        group: "{{ target_user }}"
-        mode: "0644"
-      loop: "{{ remoteapps }}"
-      vars:
-        ra_user: "{{ target_user }}"
+  loop_control:
+    loop_var: target_user
 
 - name: Update desktop database (harmless if missing)
   command: update-desktop-database
