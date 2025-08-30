@@ -1,5 +1,34 @@
-- name: set wallpaper
+- name: Set GTK theme
+  become: true
   become_user: kurt
-  dconf: 
-    key: "org/gnome/desktop/interface"
-    value: "color-scheme='prefer-dark'gtk-theme='Yaru-dark' icon-theme='Yaru'"
+  dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Yaru-dark'"
+
+- name: Set icon theme
+  become: true
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/desktop/interface/icon-theme"
+    value: "'Yaru'"
+
+- name: Set color scheme to prefer dark
+  become: true
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+
+- name: Set Dock position to bottom
+  become: true
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
+    value: "'BOTTOM'"
+
+- name: Set wallpaper scaling to stretched
+  become: true
+  become_user: kurt
+  dconf:
+    key: "/org/gnome/desktop/background/picture-options"
+    value: "stretched"

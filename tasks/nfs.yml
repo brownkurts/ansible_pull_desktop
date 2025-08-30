@@ -1,5 +1,7 @@
 ---
 - name: Mount NFS Shares
+  hosts: all
+  become: true
   vars:
     nfsmounts:
       - path: /mnt/Public
@@ -10,17 +12,22 @@
         src: 192.168.2.21:/mnt/user/Media
   tasks:
     - name: Create mount directories
-      file:
+      ansible.builtin.file:
         path: "{{ item.path }}"
         state: directory
-      with_items: "{{ nfsmounts }}"
-    - name: Mount the nfsshare in the client side
-      mount:
+        owner: root
+        group: root
+        mode: '0755'
+      loop: "{{ nfsmounts }}"
+
+    - name: Mount and persist NFS shares
+      ansible.builtin.mount:
+        path: "{{ item.path }}"
+        src: "{{ item.src }}"
         fstype: nfs
         opts: defaults
+        state: mounted
         dump: 0
         passno: 0
-        state: mounted
-        src: "{{ item.src }}"
-        path: "{{ item.path }}"
-      with_items: "{{ nfsmounts }}"
+      loop: "{{ nfsmounts }}"
+
