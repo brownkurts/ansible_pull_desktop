@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name={{ item.name }}
+Comment=RemoteApp: {{ item.name }}
+Exec=/home/{{ ra_user }}/.local/bin/remoteapps/{{ item.name | lower | regex_replace('[^a-z0-9]+','-') }}.sh
+Terminal=false
+Categories=Network;Office;
+{% if item.icon is defined and item.icon|length > 0 -%}
+Icon={{ item.icon }}
+{% else -%}
+Icon=applications-remote
+{% endif -%}

@@ -1,0 +1,9 @@
+galaxy_info:
+  author: chatgpt
+  description: Create FreeRDP RemoteApp launchers for Ubuntu users
+  license: MIT
+  min_ansible_version: "2.10"
+  platforms:
+    - name: Ubuntu
+      versions: [all]
+dependencies: []

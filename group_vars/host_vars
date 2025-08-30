@@ -1,0 +1,23 @@
+# group_vars/all.yml (or host_vars/<machine>.yml)
+
+# Optional: target which local users receive launchers
+remoteapps_users:
+  - kurt
+
+remoteapps:
+  - name: Notepad
+    server: "RAPP.brown.local"
+    app_alias: "||Notepad"
+    username: "kbrown"
+    domain: "BROWN"
+    extra_opts:
+      - "/gfx-h264:avc444"
+      - "/multimon"
+
+  - name: Excel
+    server: "RAPP.brown.local"
+    app_alias: "||Excel"
+    username: "kbrown"
+    domain: "BROWN"
+    extra_opts:
+      - "/sound"
