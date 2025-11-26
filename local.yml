@@ -10,8 +10,8 @@
         update_cache: yes
       changed_when: false
 
-  roles:
-    - remoteapps_freerdp 
+ # roles:
+  #  - remoteapps_freerdp 
     
   tasks:
     - block:
