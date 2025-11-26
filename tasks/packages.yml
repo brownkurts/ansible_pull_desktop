@@ -7,5 +7,6 @@
       - python3-psutil
       - nfs-common
       - nano
+      - curl
     state: latest
       
