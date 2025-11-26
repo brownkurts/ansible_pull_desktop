@@ -1,0 +1,29 @@
+---
+- name: Ensure Tailscale APT signing key is present
+  ansible.builtin.get_url:
+    url: https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg
+    dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+    mode: '0644'
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Ensure Tailscale APT repository is configured
+  ansible.builtin.apt_repository:
+    repo: >
+      deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg]
+      https://pkgs.tailscale.com/stable/debian {{ ansible_facts['lsb']['codename'] }} main
+    filename: tailscale
+    state: present
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install Tailscale
+  ansible.builtin.package:
+    name: tailscale
+    state: present
+
+- name: Enable and start tailscaled service
+  ansible.builtin.service:
+    name: tailscaled
+    enabled: true
+    state: started
+
+
