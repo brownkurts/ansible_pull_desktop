@@ -26,6 +26,9 @@
 
         - name: Include Chrome tasks
           include_tasks: tasks/chrome.yml
+        
+        - name: Include Tailscale tasks
+          include_tasks: tasks/tailscale.yml
 
         - name: Include background tasks
           include_tasks: tasks/background.yml
