@@ -18,30 +18,30 @@
 
     - name: Include cron tasks
       ansible.builtin.import_tasks: tasks/cron.yml
+      when: desktop_manage_ansible_pull_cron | bool
 
     - name: Include package tasks
       ansible.builtin.import_tasks: tasks/packages.yml
 
     - name: Include Chrome tasks
       ansible.builtin.import_tasks: tasks/chrome.yml
-      when: desktop_install_chrome | default(true)
+      when: desktop_install_chrome | bool
 
     - name: Include Tailscale tasks
       ansible.builtin.import_tasks: tasks/tailscale.yml
-      when: desktop_install_tailscale | default(false)
+      when: desktop_install_tailscale | bool
 
     - name: Include background tasks
       ansible.builtin.import_tasks: tasks/background.yml
-      when: desktop_manage_background | default(false)
+      when: desktop_manage_background | bool
 
     - name: Include settings tasks
       ansible.builtin.import_tasks: tasks/settings.yml
-      when: desktop_manage_settings | default(true)
+      when: desktop_manage_settings | bool
 
     - name: Cleanup apt cache
       ansible.builtin.apt:
         autoclean: true
-      changed_when: false
       when: ansible_os_family == "Debian"
 
     - name: Remove orphaned packages

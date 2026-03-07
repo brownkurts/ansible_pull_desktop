@@ -1,18 +1,18 @@
 # ansible_pull_desktop
 
-Desktop bootstrap repo for Debian/Ubuntu-based systems using `ansible-pull`.
+Desktop bootstrap repo for Debian/Ubuntu systems using `ansible-pull`.
 
 ## What it does
 
-- installs base desktop packages
+- ensures the local desktop user exists
+- installs common desktop packages
 - optionally installs Google Chrome
 - optionally installs Tailscale
-- applies desktop settings
-- manages local user configuration
+- optionally runs `ansible-pull` from cron as root
 
-## Bootstrap
+## First-time bootstrap
 
 ```bash
 sudo apt update
 sudo apt install -y ansible git
-ansible-pull -U https://github.com/brownkurts/ansible_pull_desktop.git
+sudo ansible-pull -U https://github.com/brownkurts/ansible_pull_desktop.git local.yml

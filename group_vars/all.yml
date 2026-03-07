@@ -1,20 +1,32 @@
 ---
+desktop_repo_url: "https://github.com/brownkurts/ansible_pull_desktop.git"
+desktop_repo_branch: "master"
+
+desktop_username: "kurt"
+desktop_user_groups:
+  - sudo
+  - adm
+  - plugdev
+
+desktop_manage_ansible_pull_cron: true
+desktop_ansible_pull_user: "root"
+desktop_ansible_pull_minute: "*/10"
+desktop_ansible_pull_log: "/var/log/ansible-pull.log"
+
 desktop_install_chrome: true
-desktop_install_tailscale: false
-desktop_manage_background: false
+desktop_install_tailscale: true
+desktop_manage_background: true
 desktop_manage_settings: true
 
 desktop_packages:
   - curl
+  - git
   - htop
   - mc
   - nano
   - net-tools
   - nfs-common
   - python3-psutil
-
-desktop_username: kurt
-desktop_user_groups:
-  - sudo
-  - adm
-  - plugdev
+  - rsync
+  - vim
+  - wget

@@ -1,12 +1,4 @@
 ---
-- name: Install Tailscale prerequisites
-  ansible.builtin.apt:
-    name:
-      - curl
-      - gnupg
-    state: present
-  when: ansible_os_family == "Debian"
-
 - name: Check whether Tailscale is installed
   ansible.builtin.command: tailscale version
   register: tailscale_version

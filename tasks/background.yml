@@ -1,21 +1,22 @@
+---
 - name: Copy wallpaper file
-  copy:
-    src: files/Stargate.png
-    dest: /usr/share/backgrounds/ansible-wallpaper2.png
+  ansible.builtin.copy:
+    src: "{{ desktop_wallpaper_src }}"
+    dest: "{{ desktop_wallpaper_dest }}"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 - name: Set wallpaper for light mode
   become: true
-  become_user: kurt
-  dconf:
+  become_user: "{{ desktop_username }}"
+  community.general.dconf:
     key: "/org/gnome/desktop/background/picture-uri"
-    value: "'file:///usr/share/backgrounds/ansible-wallpaper2.png'"
+    value: "'file://{{ desktop_wallpaper_dest }}'"
 
 - name: Set wallpaper for dark mode
   become: true
-  become_user: kurt
-  dconf:
+  become_user: "{{ desktop_username }}"
+  community.general.dconf:
     key: "/org/gnome/desktop/background/picture-uri-dark"
-    value: "'file:///usr/share/backgrounds/ansible-wallpaper2.png'"
+    value: "'file://{{ desktop_wallpaper_dest }}'"
