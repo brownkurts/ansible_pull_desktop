@@ -15,11 +15,17 @@ desktop_ansible_pull_log: "/var/log/ansible-pull.log"
 
 desktop_install_chrome: true
 desktop_install_tailscale: true
+
 desktop_manage_background: true
 desktop_manage_settings: true
 
+desktop_wallpaper_src: "files/Stargate.png"
+desktop_wallpaper_dest: "/usr/share/backgrounds/ansible-wallpaper2.png"
+
 desktop_packages:
+  - ansible
   - curl
+  - dconf-cli
   - git
   - htop
   - mc
