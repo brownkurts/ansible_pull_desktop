@@ -14,5 +14,6 @@ Desktop bootstrap repo for Debian/Ubuntu systems using `ansible-pull`.
 
 ```bash
 sudo apt update
-sudo apt install -y ansible git
-sudo ansible-pull -U https://github.com/brownkurts/ansible_pull_desktop.git local.yml
+sudo apt install -y ansible git dconf-cli
+ansible-galaxy collection install community.general
+sudo ansible-pull -o -U https://github.com/brownkurts/ansible_pull_desktop.git local.yml
