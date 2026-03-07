@@ -20,9 +20,11 @@
     user: "{{ desktop_ansible_pull_user }}"
     name: "ansible-pull desktop bootstrap"
     minute: "{{ desktop_ansible_pull_minute }}"
-    job: >
-     /usr/bin/ansible-pull
-     -o
-     -U {{ desktop_repo_url }}
-     -C {{ desktop_repo_branch }}
-     local.yml >> {{ desktop_ansible_pull_log }} 2>&1
+    job: >-
+      /usr/bin/ansible-pull
+      -o
+      -i localhost,
+      -l localhost
+      -U {{ desktop_repo_url }}
+      -C {{ desktop_repo_branch }}
+      local.yml >> {{ desktop_ansible_pull_log }} 2>&1
