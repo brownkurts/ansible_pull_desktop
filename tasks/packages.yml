@@ -1,11 +1,6 @@
-- name: Install packages
-  apt:
-    name:
-      - htop
-      - mc
-      - net-tools
-      - python3-psutil
-      - nfs-common
-      - nano
-    state: latest
-      
+---
+- name: Install common desktop packages
+  ansible.builtin.apt:
+    name: "{{ desktop_packages }}"
+    state: present
+  when: ansible_os_family == "Debian"

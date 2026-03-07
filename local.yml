@@ -1,51 +1,51 @@
 ---
-- hosts: localhost
+- name: Desktop bootstrap via ansible-pull
+  hosts: localhost
   connection: local
   become: true
   gather_facts: true
 
   pre_tasks:
-    - name: Update repositories
-      apt:
-        update_cache: yes
-      changed_when: false
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
 
-  roles:
-    - remoteapps_freerdp 
-    
   tasks:
-    - block:
-        - name: Include user tasks
-          include_tasks: tasks/users.yml
+    - name: Include user tasks
+      ansible.builtin.import_tasks: tasks/users.yml
 
-        - name: Include cron tasks
-          include_tasks: tasks/cron.yml
+    - name: Include cron tasks
+      ansible.builtin.import_tasks: tasks/cron.yml
 
-        - name: Include package tasks
-          include_tasks: tasks/packages.yml
+    - name: Include package tasks
+      ansible.builtin.import_tasks: tasks/packages.yml
 
-        - name: Include Chrome tasks
-          include_tasks: tasks/chrome.yml
+    - name: Include Chrome tasks
+      ansible.builtin.import_tasks: tasks/chrome.yml
+      when: desktop_install_chrome | default(true)
 
-        - name: Include background tasks
-          include_tasks: tasks/background.yml
+    - name: Include Tailscale tasks
+      ansible.builtin.import_tasks: tasks/tailscale.yml
+      when: desktop_install_tailscale | default(false)
 
-        - name: Include settings tasks
-          include_tasks: tasks/settings.yml
+    - name: Include background tasks
+      ansible.builtin.import_tasks: tasks/background.yml
+      when: desktop_manage_background | default(false)
 
-        # - name: Include NFS tasks
-        #   include_tasks: tasks/nfs.yml
+    - name: Include settings tasks
+      ansible.builtin.import_tasks: tasks/settings.yml
+      when: desktop_manage_settings | default(true)
 
-        - name: Cleanup package cache (Debian and Ubuntu)
-          apt:
-            autoclean: yes
-          changed_when: false
-          when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
+    - name: Cleanup apt cache
+      ansible.builtin.apt:
+        autoclean: true
+      changed_when: false
+      when: ansible_os_family == "Debian"
 
-        - name: Autoremove orphan packages (Debian and Ubuntu)
-          apt:
-            autoremove: yes
-            purge: yes
-          when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
-
- 
+    - name: Remove orphaned packages
+      ansible.builtin.apt:
+        autoremove: true
+        purge: true
+      when: ansible_os_family == "Debian"

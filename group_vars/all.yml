@@ -1,0 +1,20 @@
+---
+desktop_install_chrome: true
+desktop_install_tailscale: false
+desktop_manage_background: false
+desktop_manage_settings: true
+
+desktop_packages:
+  - curl
+  - htop
+  - mc
+  - nano
+  - net-tools
+  - nfs-common
+  - python3-psutil
+
+desktop_username: kurt
+desktop_user_groups:
+  - sudo
+  - adm
+  - plugdev

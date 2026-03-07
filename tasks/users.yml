@@ -1,12 +1,8 @@
-- name: add ansible user
-  user:
-    name: ansible
-    system: yes
-
-- name: set up sudo for ansible user
-  copy:
-    src: files/sudoer_ansible
-    dest: /etc/sudoers.d/ansible
-    owner: root
-    group: root
-    mode: 0440
+---
+- name: Ensure desktop user exists
+  ansible.builtin.user:
+    name: "{{ desktop_username }}"
+    shell: /bin/bash
+    groups: "{{ desktop_user_groups }}"
+    append: true
+    state: present
