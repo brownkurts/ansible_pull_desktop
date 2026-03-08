@@ -46,7 +46,7 @@ desktop_install_remmina: true
 desktop_manage_remmina: true
 desktop_remmina_install_type: "apt"
 desktop_remmina_profile_dir: "/home/{{ desktop_username }}/.local/share/remmina"
-desktop_remmina_purge_managed: true
+desktop_remmina_purge_managed: false
 
 desktop_favorite_apps:
   - google-chrome.desktop
@@ -71,6 +71,7 @@ desktop_remmina_connections:
   - name: "brown-rds1"
     group: "Windows"
     protocol: "RDP"
+    server: "192.168.2.14"
     username: "kbrown"
     domain: "brown.local"
 

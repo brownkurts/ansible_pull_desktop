@@ -7,6 +7,17 @@
     group: "{{ desktop_username }}"
     mode: "0700"
 
+- name: Validate Remmina connection entries
+  ansible.builtin.assert:
+    that:
+      - item.name is defined
+      - item.protocol is defined
+      - item.server is defined
+    fail_msg: "Remmina connection is missing required fields: {{ item | to_nice_yaml }}"
+  loop: "{{ desktop_remmina_connections | default([]) }}"
+  loop_control:
+    label: "{{ item.name | default('unnamed') }}"
+    
 - name: Create Remmina profiles from variables if missing
   ansible.builtin.template:
     src: "templates/remmina_profile.j2"
