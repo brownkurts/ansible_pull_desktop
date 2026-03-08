@@ -1,0 +1,11 @@
+- name: Ensure snapd is installed
+  ansible.builtin.apt:
+    name: snapd
+    state: present
+    update_cache: true
+
+- name: Install Remmina via snap
+  community.general.snap:
+    name: remmina
+    state: present
+  when: desktop_remmina_install_type == "snap"
