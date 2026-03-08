@@ -11,6 +11,9 @@ ssh_username={{ item.username | default(desktop_username) }}
 
 {% if item.protocol | upper == 'RDP' %}
 username={{ item.username | default('') }}
+{% if item.domain is defined and item.domain %}
+domain={{ item.domain }}
+{% endif %}
 resolution_mode=2
 quality=9
 sound=off
