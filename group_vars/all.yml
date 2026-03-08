@@ -43,8 +43,80 @@ desktop_packages:
   - wget
 
 desktop_install_remmina: true
-desktop_remmina_install_type: "snap"
-
 desktop_manage_remmina: true
+desktop_remmina_install_type: "snap"
 desktop_remmina_profile_dir: "/home/{{ desktop_username }}/snap/remmina/current/.local/share/remmina"
-desktop_remmina_profiles_src: "remmina/"
+desktop_remmina_purge_managed: true
+
+desktop_remmina_connections:
+  - name: "blue"
+    group: "Windows"
+    protocol: "RDP"
+    server: "192.168.2.38"
+    username: "kurt"
+
+  - name: "brown-dc1"
+    group: "Windows"
+    protocol: "RDP"
+    server: "192.168.2.5"
+    username: "brown.local\\kurt"
+
+  - name: "brown-rds1"
+    group: "Windows"
+    protocol: "RDP"
+    server: "192.168.2.14"
+    username: "brown.local\\kurt"
+
+  - name: "desktop"
+    group: "Windows"
+    protocol: "RDP"
+    server: "192.168.2.9"
+    username: "kurt"
+
+  - name: "work-vm"
+    group: "Windows"
+    protocol: "RDP"
+    server: "192.168.2.108"
+    username: "kurt"
+
+  - name: "docker-01"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.11"
+    username: "kurt"
+
+  - name: "docker-02"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.12"
+    username: "kurt"
+
+  - name: "docker-03"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.13"
+    username: "kurt"
+
+  - name: "destiny"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.10"
+    username: "kurt"
+
+  - name: "kasm"
+    group: "Linux"
+    protocol: "SSH"
+    server: "10.3.1.15"
+    username: "kurt"
+
+  - name: "pihole1"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.2.3"
+    username: "kurt"
+
+  - name: "unifi"
+    group: "Linux"
+    protocol: "SSH"
+    server: "74.91.16.5"
+    username: "kurt"

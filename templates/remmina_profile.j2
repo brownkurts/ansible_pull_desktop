@@ -1,0 +1,22 @@
+[remmina]
+name={{ item.name }}
+group={{ item.group | default('General') }}
+server={{ item.server }}
+protocol={{ item.protocol | lower }}
+
+{% if item.protocol | upper == 'SSH' %}
+username={{ item.username | default(desktop_username) }}
+ssh_username={{ item.username | default(desktop_username) }}
+{% endif %}
+
+{% if item.protocol | upper == 'RDP' %}
+username={{ item.username | default('') }}
+resolution_mode=2
+quality=9
+sound=off
+ignore-tls-errors=1
+{% endif %}
+
+{% if item.port is defined %}
+port={{ item.port }}
+{% endif %}
