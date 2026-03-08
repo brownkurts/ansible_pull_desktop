@@ -7,6 +7,10 @@ protocol={{ item.protocol | upper }}
 {% if item.protocol | upper == 'SSH' %}
 username={{ item.username | default(desktop_username) }}
 ssh_username={{ item.username | default(desktop_username) }}
+{% if item.ssh_privatekey is defined and item.ssh_privatekey %}
+ssh_privatekey={{ item.ssh_privatekey }}
+ssh_auth=2
+{% endif %}
 {% endif %}
 
 {% if item.protocol | upper == 'RDP' %}
@@ -14,6 +18,7 @@ username={{ item.username | default('') }}
 {% if item.domain is defined and item.domain %}
 domain={{ item.domain }}
 {% endif %}
+password=.
 resolution_mode=2
 quality=9
 sound=off
