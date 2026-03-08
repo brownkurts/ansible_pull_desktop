@@ -1,25 +1,5 @@
+---
 - name: Ensure Remmina profile directory exists
-  ansible.builtin.file:
-    path: "{{ desktop_remmina_profile_dir }}"
-    state: directory
-    owner: "{{ desktop_username }}"
-    group: "{{ desktop_username }}"
-    mode: "0700"
-  when: desktop_manage_remmina | bool
-
-
-- name: Synchronize Remmina profiles
-  ansible.posix.synchronize:
-    src: "{{ role_path }}/files/{{ desktop_remmina_profiles_src }}"
-    dest: "{{ desktop_remmina_profile_dir }}/"
-    delete: true
-    recursive: true
-    rsync_opts:
-      - "--chown={{ desktop_username }}:{{ desktop_username }}"
-      - "--chmod=F600,D700"
-  when:
-    - desktop_manage_remmina | bool
-    - desktop_remmina_delete_unmanaged | bool- name: Ensure Remmina profile directory exists
   ansible.builtin.file:
     path: "{{ desktop_remmina_profile_dir }}"
     state: directory
@@ -43,8 +23,8 @@
 
 - name: Create Remmina profiles from variables
   ansible.builtin.template:
-    src: remmina_profile.j2
-    dest: "{{ desktop_remmina_profile_dir }}/managed_{{ item.name | lower | regex_replace('[^a-z0-9]+','_') }}.remmina"
+    src: "templates/remmina_profile.j2"
+    dest: "{{ desktop_remmina_profile_dir }}/managed_{{ item.name | lower | regex_replace('[^a-z0-9]+', '_') }}.remmina"
     owner: "{{ desktop_username }}"
     group: "{{ desktop_username }}"
     mode: "0600"
