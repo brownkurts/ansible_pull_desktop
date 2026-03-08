@@ -7,27 +7,14 @@
     group: "{{ desktop_username }}"
     mode: "0700"
 
-- name: Find existing managed Remmina profiles
-  ansible.builtin.find:
-    paths: "{{ desktop_remmina_profile_dir }}"
-    patterns: "managed_*.remmina"
-    file_type: file
-  register: remmina_managed_existing
-
-- name: Remove old managed Remmina profiles
-  ansible.builtin.file:
-    path: "{{ item.path }}"
-    state: absent
-  loop: "{{ remmina_managed_existing.files }}"
-  when: desktop_remmina_purge_managed | bool
-
-- name: Create Remmina profiles from variables
+- name: Create Remmina profiles from variables if missing
   ansible.builtin.template:
     src: "templates/remmina_profile.j2"
-    dest: "{{ desktop_remmina_profile_dir }}/managed_{{ item.name | lower | regex_replace('[^a-z0-9]+', '_') }}.remmina"
+    dest: "{{ desktop_remmina_profile_dir }}/{{ item.group | default('general') | lower }}_{{ item.protocol | lower }}_{{ item.name | lower | regex_replace('[^a-z0-9]+', '_') }}_{{ item.server | regex_replace('[^a-zA-Z0-9]+', '-') }}.remmina"
     owner: "{{ desktop_username }}"
     group: "{{ desktop_username }}"
     mode: "0600"
+    force: false
   loop: "{{ desktop_remmina_connections | default([]) }}"
   loop_control:
     label: "{{ item.name }}"
