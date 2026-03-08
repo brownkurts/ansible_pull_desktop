@@ -52,13 +52,10 @@
 
     - name: Include SSH tasks
       ansible.builtin.import_tasks: tasks/ssh.yml
-      tags: [ssh]
 
     - name: Include Git tasks
       ansible.builtin.import_tasks: tasks/git.yml
-      tags: [git]
 
     - name: Include VS Code tasks
       ansible.builtin.import_tasks: tasks/vscode.yml
       when: desktop_install_vscode | bool
-      tags: [vscode]
