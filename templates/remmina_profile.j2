@@ -2,7 +2,7 @@
 name={{ item.name }}
 group={{ item.group | default('General') }}
 server={{ item.server }}
-protocol={{ item.protocol | lower }}
+protocol={{ item.protocol | upper }}
 
 {% if item.protocol | upper == 'SSH' %}
 username={{ item.username | default(desktop_username) }}
