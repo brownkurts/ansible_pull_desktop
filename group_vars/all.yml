@@ -59,7 +59,8 @@ desktop_remmina_connections:
     group: "Windows"
     protocol: "RDP"
     server: "192.168.2.5"
-    username: "brown.local\\kurt"
+    username: "kbrown"
+    domain: brown.local
 
   - name: "brown-rds1"
     group: "Windows"
