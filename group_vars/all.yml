@@ -2,6 +2,11 @@
 desktop_repo_url: "https://github.com/brownkurts/ansible_pull_desktop.git"
 desktop_repo_branch: "master"
 
+desktop_install_vscode: true
+
+desktop_git_user_name: "Kurt Brown"
+desktop_git_user_email: "brownkurts@gmail.com"
+
 desktop_username: "kurt"
 desktop_user_groups:
   - sudo

@@ -1,0 +1,32 @@
+---
+- name: Configure git username
+  become: true
+  become_user: "{{ desktop_username }}"
+  community.general.git_config:
+    name: user.name
+    value: "{{ desktop_git_user_name }}"
+    scope: global
+
+- name: Configure git email
+  become: true
+  become_user: "{{ desktop_username }}"
+  community.general.git_config:
+    name: user.email
+    value: "{{ desktop_git_user_email }}"
+    scope: global
+
+- name: Configure default branch
+  become: true
+  become_user: "{{ desktop_username }}"
+  community.general.git_config:
+    name: init.defaultBranch
+    value: main
+    scope: global
+
+- name: Configure pull behavior
+  become: true
+  become_user: "{{ desktop_username }}"
+  community.general.git_config:
+    name: pull.rebase
+    value: "false"
+    scope: global

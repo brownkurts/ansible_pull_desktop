@@ -1,0 +1,6 @@
+---
+- name: Install VS Code via snap
+  community.general.snap:
+    name: code
+    classic: true
+    state: present
