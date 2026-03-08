@@ -74,7 +74,6 @@ desktop_remmina_connections:
     username: "kbrown"
     domain: "brown.local"
 
-
   - name: "desktop"
     group: "Windows"
     protocol: "RDP"
