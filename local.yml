@@ -73,3 +73,7 @@
     - name: Manage Remmina profiles
       ansible.builtin.import_tasks: tasks/remmina_profiles.yml
       when: desktop_manage_remmina | bool
+
+    - name: Configure dock favorites
+      ansible.builtin.import_tasks: tasks/dock.yml
+      when: desktop_manage_settings | bool

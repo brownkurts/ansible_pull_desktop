@@ -48,6 +48,12 @@ desktop_remmina_install_type: "apt"
 desktop_remmina_profile_dir: "/home/{{ desktop_username }}/.local/share/remmina"
 desktop_remmina_purge_managed: true
 
+desktop_favorite_apps:
+  - google-chrome.desktop
+  - org.remmina.Remmina.desktop
+  - org.gnome.Nautilus.desktop
+  - org.gnome.Terminal.desktop
+  
 desktop_remmina_connections:
   - name: "blue"
     group: "Windows"
