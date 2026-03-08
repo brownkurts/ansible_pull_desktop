@@ -1,7 +1,0 @@
-- name: Set GNOME dock favorites
-  become_user: "{{ desktop_username }}"
-  ansible.builtin.command: >
-    gsettings set org.gnome.shell favorite-apps
-    "{{ desktop_favorite_apps }}"
-  environment:
-    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ lookup('ansible.builtin.pipe', 'id -u ' + desktop_username) }}/bus"
