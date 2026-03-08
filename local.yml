@@ -59,3 +59,7 @@
     - name: Include VS Code tasks
       ansible.builtin.import_tasks: tasks/vscode.yml
       when: desktop_install_vscode | bool
+  
+    - name: Manage Remmina profiles
+      ansible.builtin.import_tasks: remmina.yml
+      when: desktop_manage_remmina | bool

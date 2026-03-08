@@ -41,3 +41,9 @@ desktop_packages:
   - rsync
   - vim
   - wget
+
+desktop_manage_remmina: true
+desktop_remmina_install_type: "snap"
+desktop_remmina_profile_dir: "/home/{{ desktop_username }}/snap/remmina/current/.local/share/remmina"
+desktop_remmina_profiles_src: "remmina/"
+desktop_remmina_delete_unmanaged: true
