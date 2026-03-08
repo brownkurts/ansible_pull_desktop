@@ -1,0 +1,23 @@
+---
+- name: Check for existing snap Remmina profile directory
+  ansible.builtin.stat:
+    path: "/home/{{ desktop_username }}/snap/remmina/current/.local/share/remmina"
+  register: remmina_snap_profile_dir
+
+- name: Ensure apt Remmina profile directory exists
+  ansible.builtin.file:
+    path: "/home/{{ desktop_username }}/.local/share/remmina"
+    state: directory
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0700"
+
+- name: Copy old snap Remmina profiles into apt profile directory
+  ansible.builtin.copy:
+    src: "/home/{{ desktop_username }}/snap/remmina/current/.local/share/remmina/"
+    dest: "/home/{{ desktop_username }}/.local/share/remmina/"
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: preserve
+    remote_src: true
+  when: remmina_snap_profile_dir.stat.exists

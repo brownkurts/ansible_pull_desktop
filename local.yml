@@ -64,6 +64,12 @@
       ansible.builtin.import_tasks: tasks/remmina_install.yml
       when: desktop_install_remmina | bool
 
+    - name: Migrate Remmina profiles from snap to apt path
+      ansible.builtin.import_tasks: tasks/remmina_migrate.yml
+      when:
+        - desktop_install_remmina | bool
+        - desktop_remmina_install_type == "apt"
+
     - name: Manage Remmina profiles
       ansible.builtin.import_tasks: tasks/remmina_profiles.yml
       when: desktop_manage_remmina | bool

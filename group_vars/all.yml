@@ -44,8 +44,8 @@ desktop_packages:
 
 desktop_install_remmina: true
 desktop_manage_remmina: true
-desktop_remmina_install_type: "snap"
-desktop_remmina_profile_dir: "/home/{{ desktop_username }}/snap/remmina/current/.local/share/remmina"
+desktop_remmina_install_type: "apt"
+desktop_remmina_profile_dir: "/home/{{ desktop_username }}/.local/share/remmina"
 desktop_remmina_purge_managed: true
 
 desktop_remmina_connections:

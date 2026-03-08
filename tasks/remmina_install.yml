@@ -1,24 +1,24 @@
-- name: Ensure snapd is installed
+---
+- name: Remove Remmina snap if installed
+  ansible.builtin.command: snap remove remmina
+  register: remmina_snap_remove
+  changed_when: "'removed' in ((remmina_snap_remove.stdout | default('')) + (remmina_snap_remove.stderr | default('')))"
+  failed_when: false
+  when: desktop_remmina_install_type == "apt"
+
+- name: Ensure Remmina apt packages are installed
   ansible.builtin.apt:
-    name: snapd
+    name:
+      - remmina
+      - remmina-plugin-rdp
+      - remmina-plugin-secret
+      - remmina-plugin-vnc
     state: present
     update_cache: true
-  when: desktop_remmina_install_type == "snap"
+  when: desktop_remmina_install_type == "apt"
 
-- name: Ensure snapd service is enabled
-  ansible.builtin.systemd:
-    name: snapd
-    enabled: true
-    state: started
-  when: desktop_remmina_install_type == "snap"
-
-- name: Install Remmina via snap
-  ansible.builtin.command: snap install remmina
-  register: remmina_snap_install
-  changed_when: "'remmina' in remmina_snap_install.stdout or remmina_snap_install.rc == 0"
-  failed_when:
-    - remmina_snap_install.rc != 0
-    - "'already installed' not in remmina_snap_install.stderr | default('')"
-  when:
-    - desktop_install_remmina | bool
-    - desktop_remmina_install_type == "snap"
+- name: Ensure Remmina is not running before migration
+  ansible.builtin.command: pkill -x remmina
+  failed_when: false
+  changed_when: false
+  when: desktop_remmina_install_type == "apt"
