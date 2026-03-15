@@ -1,0 +1,104 @@
+---
+- name: Install packages for Tailscale desktop overlay
+  become: true
+  ansible.builtin.apt:
+    name:
+      - conky-all
+      - jq
+    state: present
+    update_cache: true
+
+- name: Ensure local bin directory exists
+  ansible.builtin.file:
+    path: "/home/{{ desktop_username }}/.local/bin"
+    state: directory
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0755"
+
+- name: Install tailscale desktop script
+  ansible.builtin.copy:
+    dest: "/home/{{ desktop_username }}/.local/bin/tailscale-desktop"
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0755"
+    content: |
+      #!/bin/bash
+      tailscale status --json 2>/dev/null | jq -r '
+      [
+        "TAILSCALE STATUS",
+        "----------------",
+        (if .Self then "Self: \(.Self.HostName)  \(.Self.TailscaleIPs[0] // "no-ip")" else "Tailscale not available" end),
+        "",
+        "Peers:"
+      ] + (
+        if (.Peer | type) == "object" and ((.Peer | length) > 0) then
+          (.Peer | to_entries | map("\(.value.HostName // .key)  \(.value.TailscaleIPs[0] // "no-ip")  \(.value.Online // false)"))
+        else
+          ["No peers"]
+        end
+      ) | .[]'
+
+- name: Install Conky config
+  ansible.builtin.copy:
+    dest: "/home/{{ desktop_username }}/.conkyrc"
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0644"
+    content: |
+      conky.config = {
+          alignment = 'top_right',
+          background = true,
+          double_buffer = true,
+          update_interval = 10,
+          own_window = true,
+          own_window_type = 'desktop',
+          own_window_transparent = true,
+          own_window_argb_visual = true,
+          own_window_argb_value = 0,
+          own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+          use_xft = true,
+          font = 'Monospace:size=10',
+          gap_x = 20,
+          gap_y = 40,
+          minimum_width = 420,
+          draw_shades = false,
+          draw_outline = false,
+          draw_borders = false,
+      }
+
+      conky.text = [[
+      ${execpi 10 /home/{{ desktop_username }}/.local/bin/tailscale-desktop}
+      ]]
+
+- name: Ensure autostart directory exists
+  ansible.builtin.file:
+    path: "/home/{{ desktop_username }}/.config/autostart"
+    state: directory
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0755"
+
+- name: Install Conky autostart entry
+  ansible.builtin.copy:
+    dest: "/home/{{ desktop_username }}/.config/autostart/conky.desktop"
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0644"
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Name=Conky
+      Comment=Tailscale desktop overlay
+      Exec=/usr/bin/conky -c /home/{{ desktop_username }}/.conkyrc
+      X-GNOME-Autostart-enabled=true
+      NoDisplay=false
+      Hidden=false
+      Terminal=false
+
+- name: Best-effort restart of Conky for logged-in desktop user
+  ansible.builtin.shell: |
+    pkill -u {{ desktop_username }} -x conky >/dev/null 2>&1 || true
+    su - {{ desktop_username }} -c 'nohup /usr/bin/conky -c /home/{{ desktop_username }}/.conkyrc >/dev/null 2>&1 &' || true
+  changed_when: false
+  failed_when: false

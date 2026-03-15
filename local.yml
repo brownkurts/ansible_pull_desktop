@@ -35,6 +35,9 @@
       ansible.builtin.import_tasks: tasks/background.yml
       when: desktop_manage_background | bool
 
+    - name: Include Tailscale overlay tasks
+      ansible.builtin.include_tasks: tasks/tailscale_overlay.yml
+      
     - name: Include settings tasks
       ansible.builtin.import_tasks: tasks/settings.yml
       when: desktop_manage_settings | bool
