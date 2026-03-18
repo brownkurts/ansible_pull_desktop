@@ -86,6 +86,13 @@ desktop_remmina_connections:
     server: "192.168.2.108"
     username: "kurt"
 
+  - name: "proxmox-01"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.2.201"
+    username: "root"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
+
   - name: "docker-01"
     group: "Linux"
     protocol: "SSH"
