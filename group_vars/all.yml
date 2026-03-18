@@ -93,7 +93,7 @@ desktop_remmina_connections:
     username: "root"
     ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
 
-  - name: "pve-nox"
+  - name: "pve-noc"
     group: "Linux"
     protocol: "SSH"
     server: "10.3.1.200"
