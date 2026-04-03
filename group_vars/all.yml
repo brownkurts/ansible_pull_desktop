@@ -100,6 +100,27 @@ desktop_remmina_connections:
     username: "root"
     ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
 
+  - name: "ks3-1"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.51"
+    username: "kurt"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
+
+  - name: "ks3-2"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.52"
+    username: "kurt"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
+
+  - name: "ks3-3"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.53"
+    username: "kurt"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
+
   - name: "docker-01"
     group: "Linux"
     protocol: "SSH"
