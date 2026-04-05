@@ -58,8 +58,8 @@ desktop_remmina_connections:
     protocol: "RDP"
     server: "192.168.2.38"
     username: "kurt"
-    resolution_mode: 2
-    use_multimon: 0
+    resolution_mode: 1
+    multimon: 0
     span: 0
 
   - name: "brown-dc1"
@@ -68,8 +68,8 @@ desktop_remmina_connections:
     server: "192.168.2.5"
     username: "kbrown"
     domain: "brown.local"
-    resolution_mode: 2
-    use_multimon: 0
+    resolution_mode: 1
+    multimon: 0
     span: 0
 
   - name: "brown-rds1"
@@ -78,8 +78,8 @@ desktop_remmina_connections:
     server: "192.168.2.14"
     username: "kbrown"
     domain: "brown.local"
-    resolution_mode: 2
-    use_multimon: 0
+    resolution_mode: 1
+    multimon: 0
     span: 0
 
   - name: "desktop"
@@ -87,19 +87,23 @@ desktop_remmina_connections:
     protocol: "RDP"
     server: "192.168.2.9"
     username: "kurt"
-    resolution_mode: 2
-    use_multimon: 1
+    resolution_mode: 1
+    multimon: 1
     span: 0
+    viewmode: 4
+    window_maximize: 1
 
   - name: "work-vm"
     group: "Windows"
     protocol: "RDP"
     server: "192.168.2.108"
     username: "kurt"
-    resolution_mode: 2
-    use_multimon: 1
+    resolution_mode: 1
+    multimon: 1
     span: 0
-
+    viewmode: 4
+    window_maximize: 1
+    
   - name: "proxmox-01"
     group: "Linux"
     protocol: "SSH"
