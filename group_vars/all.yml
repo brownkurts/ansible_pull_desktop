@@ -1,4 +1,3 @@
----
 desktop_repo_url: "https://github.com/brownkurts/ansible_pull_desktop.git"
 desktop_repo_branch: "master"
 
@@ -52,13 +51,16 @@ desktop_favorite_apps:
   - org.remmina.Remmina.desktop
   - org.gnome.Nautilus.desktop
   - org.gnome.Terminal.desktop
-  
+
 desktop_remmina_connections:
   - name: "blue"
     group: "Windows"
     protocol: "RDP"
     server: "192.168.2.38"
     username: "kurt"
+    resolution_mode: 2
+    use_multimon: 0
+    span: 0
 
   - name: "brown-dc1"
     group: "Windows"
@@ -66,6 +68,9 @@ desktop_remmina_connections:
     server: "192.168.2.5"
     username: "kbrown"
     domain: "brown.local"
+    resolution_mode: 2
+    use_multimon: 0
+    span: 0
 
   - name: "brown-rds1"
     group: "Windows"
@@ -73,18 +78,27 @@ desktop_remmina_connections:
     server: "192.168.2.14"
     username: "kbrown"
     domain: "brown.local"
+    resolution_mode: 2
+    use_multimon: 0
+    span: 0
 
   - name: "desktop"
     group: "Windows"
     protocol: "RDP"
     server: "192.168.2.9"
     username: "kurt"
+    resolution_mode: 2
+    use_multimon: 1
+    span: 0
 
   - name: "work-vm"
     group: "Windows"
     protocol: "RDP"
     server: "192.168.2.108"
     username: "kurt"
+    resolution_mode: 2
+    use_multimon: 1
+    span: 0
 
   - name: "proxmox-01"
     group: "Linux"

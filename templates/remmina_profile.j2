@@ -18,7 +18,9 @@ username={{ item.username | default('') }}
 {% if item.domain is defined and item.domain %}
 domain={{ item.domain }}
 {% endif %}
-resolution_mode=2
+resolution_mode={{ item.resolution_mode | default(2) }}
+use_multimon={{ item.use_multimon | default(0) }}
+span={{ item.span | default(0) }}
 quality=9
 sound=off
 ignore-tls-errors=1

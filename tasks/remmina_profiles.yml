@@ -1,4 +1,3 @@
----
 - name: Ensure Remmina profile directory exists
   ansible.builtin.file:
     path: "{{ desktop_remmina_profile_dir }}"
@@ -18,14 +17,13 @@
   loop_control:
     label: "{{ item.name | default('unnamed') }}"
 
-- name: Create Remmina profiles from variables if missing
+- name: Create Remmina profiles from variables
   ansible.builtin.template:
     src: "remmina_profile.j2"
     dest: "{{ desktop_remmina_profile_dir }}/{{ item.group | default('general') | lower }}_{{ item.protocol | lower }}_{{ item.name | lower | regex_replace('[^a-z0-9]+', '_') }}_{{ item.server | regex_replace('[^a-zA-Z0-9]+', '-') }}.remmina"
     owner: "{{ desktop_username }}"
     group: "{{ desktop_username }}"
     mode: "0600"
-    force: false
   loop: "{{ desktop_remmina_connections | default([]) }}"
   loop_control:
     label: "{{ item.name }}"
