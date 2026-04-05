@@ -1,4 +1,3 @@
----
 - name: Desktop bootstrap via ansible-pull
   hosts: localhost
   connection: local
@@ -37,7 +36,7 @@
 
     - name: Include Tailscale overlay tasks
       ansible.builtin.include_tasks: tasks/tailscale_overlay.yml
-      
+
     - name: Include settings tasks
       ansible.builtin.import_tasks: tasks/settings.yml
       when: desktop_manage_settings | bool
@@ -70,3 +69,6 @@
     - name: Manage Remmina profiles
       ansible.builtin.import_tasks: tasks/remmina_profiles.yml
       when: desktop_manage_remmina | bool
+
+    - name: Manage xfreerdp launchers
+      ansible.builtin.import_tasks: tasks/xfreerdp_launchers.yml

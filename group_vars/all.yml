@@ -30,6 +30,7 @@ desktop_packages:
   - ansible
   - curl
   - dconf-cli
+  - freerdp2-x11
   - git
   - htop
   - mc
@@ -46,6 +47,9 @@ desktop_manage_remmina: true
 desktop_remmina_install_type: "apt"
 desktop_remmina_profile_dir: "/home/{{ desktop_username }}/.local/share/remmina"
 
+desktop_rdp_launcher_dir: "/home/{{ desktop_username }}/.local/bin"
+desktop_rdp_desktop_dir: "/home/{{ desktop_username }}/Desktop"
+
 desktop_favorite_apps:
   - google-chrome.desktop
   - org.remmina.Remmina.desktop
@@ -61,6 +65,7 @@ desktop_remmina_connections:
     resolution_mode: 1
     multimon: 0
     span: 0
+    create_xfreerdp_launcher: true
 
   - name: "brown-dc1"
     group: "Windows"
@@ -71,6 +76,7 @@ desktop_remmina_connections:
     resolution_mode: 1
     multimon: 0
     span: 0
+    create_xfreerdp_launcher: true
 
   - name: "brown-rds1"
     group: "Windows"
@@ -81,6 +87,7 @@ desktop_remmina_connections:
     resolution_mode: 1
     multimon: 0
     span: 0
+    create_xfreerdp_launcher: true
 
   - name: "desktop"
     group: "Windows"
@@ -92,6 +99,7 @@ desktop_remmina_connections:
     span: 0
     viewmode: 4
     window_maximize: 1
+    create_xfreerdp_launcher: true
 
   - name: "work-vm"
     group: "Windows"
@@ -103,7 +111,8 @@ desktop_remmina_connections:
     span: 0
     viewmode: 4
     window_maximize: 1
-    
+    create_xfreerdp_launcher: true
+
   - name: "proxmox-01"
     group: "Linux"
     protocol: "SSH"

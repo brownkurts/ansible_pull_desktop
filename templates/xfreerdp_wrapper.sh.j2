@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+USER_NAME="{{ item.username | default('') }}"
+SERVER="{{ item.server }}"
+{% if item.domain is defined and item.domain %}
+DOMAIN="{{ item.domain }}"
+{% else %}
+DOMAIN=""
+{% endif %}
+
+if [ -n "$DOMAIN" ]; then
+  exec xfreerdp \
+    /v:"$SERVER" \
+    /u:"$USER_NAME" \
+    /d:"$DOMAIN" \
+    /multimon \
+    /dynamic-resolution \
+    +clipboard \
+    /cert:ignore
+else
+  exec xfreerdp \
+    /v:"$SERVER" \
+    /u:"$USER_NAME" \
+    /multimon \
+    /dynamic-resolution \
+    +clipboard \
+    /cert:ignore
+fi

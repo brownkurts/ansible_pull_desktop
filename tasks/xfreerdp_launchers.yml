@@ -1,0 +1,43 @@
+- name: Ensure xfreerdp launcher script directory exists
+  ansible.builtin.file:
+    path: "{{ desktop_rdp_launcher_dir }}"
+    state: directory
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0755"
+
+- name: Ensure desktop launcher directory exists
+  ansible.builtin.file:
+    path: "{{ desktop_rdp_desktop_dir }}"
+    state: directory
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0755"
+
+- name: Create xfreerdp wrapper scripts for RDP connections
+  ansible.builtin.template:
+    src: "xfreerdp_wrapper.sh.j2"
+    dest: "{{ desktop_rdp_launcher_dir }}/rdp-{{ item.name | lower | regex_replace('[^a-z0-9]+', '-') }}"
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0755"
+  loop: "{{ desktop_remmina_connections | default([]) }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - item.protocol | upper == "RDP"
+    - item.create_xfreerdp_launcher | default(false)
+
+- name: Create desktop launchers for RDP connections
+  ansible.builtin.template:
+    src: "xfreerdp.desktop.j2"
+    dest: "{{ desktop_rdp_desktop_dir }}/{{ item.name }}.desktop"
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+    mode: "0755"
+  loop: "{{ desktop_remmina_connections | default([]) }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - item.protocol | upper == "RDP"
+    - item.create_xfreerdp_launcher | default(false)

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=RDP {{ item.name }}
+Comment=Connect to {{ item.server }} with xfreerdp
+Exec={{ desktop_rdp_launcher_dir }}/rdp-{{ item.name | lower | regex_replace('[^a-z0-9]+', '-') }}
+Icon=org.remmina.Remmina
+Terminal=false
+Categories=Network;RemoteAccess;
+StartupNotify=true
