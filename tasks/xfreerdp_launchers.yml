@@ -41,3 +41,29 @@
   when:
     - item.protocol | upper == "RDP"
     - item.create_xfreerdp_launcher | default(false)
+
+- name: Mark desktop launchers as trusted in GNOME
+  ansible.builtin.command:
+    cmd: gio set "{{ desktop_rdp_desktop_dir }}/{{ item.name }}.desktop" metadata::trusted true
+  become: true
+  become_user: "{{ desktop_username }}"
+  loop: "{{ desktop_remmina_connections | default([]) }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - item.protocol | upper == "RDP"
+    - item.create_xfreerdp_launcher | default(false)
+  changed_when: true
+
+- name: Ensure desktop launchers are executable
+  ansible.builtin.file:
+    path: "{{ desktop_rdp_desktop_dir }}/{{ item.name }}.desktop"
+    mode: "0755"
+    owner: "{{ desktop_username }}"
+    group: "{{ desktop_username }}"
+  loop: "{{ desktop_remmina_connections | default([]) }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - item.protocol | upper == "RDP"
+    - item.create_xfreerdp_launcher | default(false)
