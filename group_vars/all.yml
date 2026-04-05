@@ -65,7 +65,7 @@ desktop_remmina_connections:
     resolution_mode: 1
     multimon: 0
     span: 0
-    create_xfreerdp_launcher: true
+    create_xfreerdp_launcher: false
 
   - name: "brown-dc1"
     group: "Windows"
@@ -76,7 +76,7 @@ desktop_remmina_connections:
     resolution_mode: 1
     multimon: 0
     span: 0
-    create_xfreerdp_launcher: true
+    create_xfreerdp_launcher: false
 
   - name: "brown-rds1"
     group: "Windows"
@@ -87,7 +87,7 @@ desktop_remmina_connections:
     resolution_mode: 1
     multimon: 0
     span: 0
-    create_xfreerdp_launcher: true
+    create_xfreerdp_launcher: false
 
   - name: "desktop"
     group: "Windows"
