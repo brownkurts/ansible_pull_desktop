@@ -51,7 +51,10 @@
       when: desktop_manage_background | bool
 
     - name: Include Tailscale overlay tasks
-      ansible.builtin.include_tasks: tasks/tailscale_overlay.yml
+      ansible.builtin.import_tasks: tasks/tailscale_overlay.yml
+      when:
+        - desktop_install_tailscale | bool
+        - desktop_manage_tailscale_overlay | bool
 
     - name: Include settings tasks
       ansible.builtin.import_tasks: tasks/settings.yml
@@ -60,6 +63,10 @@
     - name: Manage Remmina profiles
       ansible.builtin.import_tasks: tasks/remmina_profiles.yml
       when: desktop_manage_remmina | bool
+
+    - name: Manage xfreerdp launchers
+      ansible.builtin.import_tasks: tasks/xfreerdp_launchers.yml
+      when: desktop_manage_xfreerdp_launchers | bool
 
     - name: Include ansible-pull cron tasks
       ansible.builtin.import_tasks: tasks/cron.yml

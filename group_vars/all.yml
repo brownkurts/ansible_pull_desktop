@@ -27,6 +27,12 @@ desktop_wallpaper_dest: "/usr/share/backgrounds/ansible-wallpaper2.png"
 
 desktop_user_uid: 1000
 
+desktop_manage_tailscale_overlay: true
+desktop_manage_xfreerdp_launchers: true
+
+desktop_rdp_launcher_dir: "/home/{{ desktop_username }}/.local/bin"
+desktop_rdp_desktop_dir: "/home/{{ desktop_username }}/Desktop"
+
 # -----------------------------
 # BASE PACKAGES
 # -----------------------------
