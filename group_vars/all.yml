@@ -1,4 +1,3 @@
----
 desktop_repo_url: "https://github.com/brownkurts/ansible_pull_desktop.git"
 desktop_repo_branch: "master"
 
@@ -37,6 +36,7 @@ desktop_packages:
   - ca-certificates
   - curl
   - dconf-cli
+  - freerdp2-x11
   - git
   - gnupg
   - htop
@@ -107,6 +107,10 @@ desktop_remmina_connections:
     protocol: "RDP"
     server: "192.168.2.38"
     username: "kurt"
+    resolution_mode: 1
+    multimon: 0
+    span: 0
+    create_xfreerdp_launcher: false
 
   - name: "brown-dc1"
     group: "Windows"
@@ -114,6 +118,10 @@ desktop_remmina_connections:
     server: "192.168.2.5"
     username: "kbrown"
     domain: "brown.local"
+    resolution_mode: 1
+    multimon: 0
+    span: 0
+    create_xfreerdp_launcher: false
 
   - name: "brown-rds1"
     group: "Windows"
@@ -121,18 +129,69 @@ desktop_remmina_connections:
     server: "192.168.2.14"
     username: "kbrown"
     domain: "brown.local"
+    resolution_mode: 1
+    multimon: 0
+    span: 0
+    create_xfreerdp_launcher: false
 
   - name: "desktop"
     group: "Windows"
     protocol: "RDP"
     server: "192.168.2.9"
     username: "kurt"
+    resolution_mode: 1
+    multimon: 1
+    span: 0
+    viewmode: 4
+    window_maximize: 1
+    create_xfreerdp_launcher: true
 
   - name: "work-vm"
     group: "Windows"
     protocol: "RDP"
     server: "192.168.2.108"
     username: "kurt"
+    resolution_mode: 1
+    multimon: 1
+    span: 0
+    viewmode: 4
+    window_maximize: 1
+    create_xfreerdp_launcher: true
+
+  - name: "proxmox-01"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.2.201"
+    username: "root"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
+
+  - name: "pve-noc"
+    group: "Linux"
+    protocol: "SSH"
+    server: "74.91.16.2"
+    username: "root"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
+
+  - name: "ks3-1"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.51"
+    username: "kurt"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
+
+  - name: "ks3-2"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.52"
+    username: "kurt"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
+
+  - name: "ks3-3"
+    group: "Linux"
+    protocol: "SSH"
+    server: "192.168.201.53"
+    username: "kurt"
+    ssh_privatekey: "/home/kurt/.ssh/id_ed25519"
 
   - name: "docker-01"
     group: "Linux"
