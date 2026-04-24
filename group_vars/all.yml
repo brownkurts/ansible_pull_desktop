@@ -59,7 +59,7 @@ desktop_packages:
 # DEVICE TYPE AUTO-DETECTION
 # -----------------------------
 desktop_laptop_hosts:
-  - kurt-laptop
+  - kurts-lt
 
 desktop_device_type: "{{ 'laptop' if ansible_hostname in desktop_laptop_hosts else 'desktop' }}"
 
