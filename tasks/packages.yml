@@ -1,6 +1,6 @@
 ---
 - name: Install common desktop packages
   ansible.builtin.apt:
-    name: "{{ desktop_packages }}"
+    name: "{{ desktop_packages_final | default(desktop_packages) }}"
     state: present
   when: ansible_os_family == "Debian"

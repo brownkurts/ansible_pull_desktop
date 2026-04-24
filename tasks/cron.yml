@@ -15,6 +15,22 @@
     group: root
     mode: "0644"
 
+- name: Install logrotate config for ansible-pull
+  ansible.builtin.copy:
+    dest: /etc/logrotate.d/ansible-pull
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      {{ desktop_ansible_pull_log }} {
+          weekly
+          rotate 8
+          compress
+          missingok
+          notifempty
+          copytruncate
+      }
+
 - name: Install cron job for ansible-pull
   ansible.builtin.cron:
     user: "{{ desktop_ansible_pull_user }}"
@@ -23,6 +39,7 @@
     job: >-
       /usr/bin/ansible-pull
       -o
+      --accept-host-key
       -i localhost,
       -l localhost
       -U {{ desktop_repo_url }}

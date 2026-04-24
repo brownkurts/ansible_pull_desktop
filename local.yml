@@ -12,13 +12,15 @@
         cache_valid_time: 3600
       when: ansible_os_family == "Debian"
 
+    - name: Install Ansible Galaxy requirements
+      ansible.builtin.command:
+        cmd: ansible-galaxy collection install -r requirements.yml
+      changed_when: false
+      when: ansible_os_family == "Debian"
+
   tasks:
     - name: Include user tasks
       ansible.builtin.import_tasks: tasks/users.yml
-
-    - name: Include cron tasks
-      ansible.builtin.import_tasks: tasks/cron.yml
-      when: desktop_manage_ansible_pull_cron | bool
 
     - name: Include package tasks
       ansible.builtin.import_tasks: tasks/packages.yml
@@ -27,9 +29,23 @@
       ansible.builtin.import_tasks: tasks/chrome.yml
       when: desktop_install_chrome | bool
 
+    - name: Include VS Code tasks
+      ansible.builtin.import_tasks: tasks/vscode.yml
+      when: desktop_install_vscode | bool
+
     - name: Include Tailscale tasks
       ansible.builtin.import_tasks: tasks/tailscale.yml
       when: desktop_install_tailscale | bool
+
+    - name: Include Remmina install tasks
+      ansible.builtin.import_tasks: tasks/remmina_install.yml
+      when: desktop_install_remmina | bool
+
+    - name: Include SSH tasks
+      ansible.builtin.import_tasks: tasks/ssh.yml
+
+    - name: Include Git tasks
+      ansible.builtin.import_tasks: tasks/git.yml
 
     - name: Include background tasks
       ansible.builtin.import_tasks: tasks/background.yml
@@ -38,6 +54,14 @@
     - name: Include settings tasks
       ansible.builtin.import_tasks: tasks/settings.yml
       when: desktop_manage_settings | bool
+
+    - name: Manage Remmina profiles
+      ansible.builtin.import_tasks: tasks/remmina_profiles.yml
+      when: desktop_manage_remmina | bool
+
+    - name: Include ansible-pull cron tasks
+      ansible.builtin.import_tasks: tasks/cron.yml
+      when: desktop_manage_ansible_pull_cron | bool
 
     - name: Cleanup apt cache
       ansible.builtin.apt:
@@ -49,21 +73,3 @@
         autoremove: true
         purge: true
       when: ansible_os_family == "Debian"
-
-    - name: Include SSH tasks
-      ansible.builtin.import_tasks: tasks/ssh.yml
-
-    - name: Include Git tasks
-      ansible.builtin.import_tasks: tasks/git.yml
-
-    - name: Include VS Code tasks
-      ansible.builtin.import_tasks: tasks/vscode.yml
-      when: desktop_install_vscode | bool
-
-    - name: Install Remmina
-      ansible.builtin.import_tasks: tasks/remmina_install.yml
-      when: desktop_install_remmina | bool
-
-    - name: Manage Remmina profiles
-      ansible.builtin.import_tasks: tasks/remmina_profiles.yml
-      when: desktop_manage_remmina | bool

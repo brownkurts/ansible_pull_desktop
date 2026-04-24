@@ -3,6 +3,8 @@ desktop_repo_url: "https://github.com/brownkurts/ansible_pull_desktop.git"
 desktop_repo_branch: "master"
 
 desktop_install_vscode: true
+desktop_install_chrome: true
+desktop_install_tailscale: true
 
 desktop_git_user_name: "Kurt Brown"
 desktop_git_user_email: "brownkurts@gmail.com"
@@ -15,11 +17,8 @@ desktop_user_groups:
 
 desktop_manage_ansible_pull_cron: true
 desktop_ansible_pull_user: "root"
-desktop_ansible_pull_minute: "*/10"
+desktop_ansible_pull_minute: "*/30"
 desktop_ansible_pull_log: "/var/log/ansible-pull.log"
-
-desktop_install_chrome: true
-desktop_install_tailscale: true
 
 desktop_manage_background: true
 desktop_manage_settings: true
@@ -27,32 +26,81 @@ desktop_manage_settings: true
 desktop_wallpaper_src: "files/Stargate.png"
 desktop_wallpaper_dest: "/usr/share/backgrounds/ansible-wallpaper2.png"
 
+desktop_user_uid: 1000
+
+# -----------------------------
+# BASE PACKAGES
+# -----------------------------
 desktop_packages:
   - ansible
+  - apt-transport-https
+  - ca-certificates
   - curl
   - dconf-cli
   - git
+  - gnupg
   - htop
+  - jq
   - mc
   - nano
   - net-tools
   - nfs-common
+  - openssh-client
   - python3-psutil
+  - python3-pip
   - rsync
+  - software-properties-common
+  - unzip
   - vim
   - wget
+  - xclip
 
+# -----------------------------
+# DEVICE TYPE AUTO-DETECTION
+# -----------------------------
+desktop_laptop_hosts:
+  - kurt-laptop
+
+desktop_device_type: "{{ 'laptop' if ansible_hostname in desktop_laptop_hosts else 'desktop' }}"
+
+# -----------------------------
+# DEVICE-SPECIFIC PACKAGES
+# -----------------------------
+desktop_laptop_packages:
+  - powertop
+  - tlp
+  - tlp-rdw
+
+desktop_desktop_packages: []
+
+# FINAL PACKAGE LIST
+desktop_packages_final: "{{ desktop_packages + (desktop_laptop_packages if desktop_device_type == 'laptop' else desktop_desktop_packages) }}"
+
+# -----------------------------
+# REMMINA
+# -----------------------------
 desktop_install_remmina: true
 desktop_manage_remmina: true
 desktop_remmina_install_type: "apt"
 desktop_remmina_profile_dir: "/home/{{ desktop_username }}/.local/share/remmina"
 
+# false = keep saved passwords / manual edits
+# true = enforce full GitOps overwrite
+desktop_remmina_force_profiles: false
+
+# -----------------------------
+# GNOME FAVORITES
+# -----------------------------
 desktop_favorite_apps:
   - google-chrome.desktop
+  - code.desktop
   - org.remmina.Remmina.desktop
   - org.gnome.Nautilus.desktop
   - org.gnome.Terminal.desktop
-  
+
+# -----------------------------
+# REMMINA CONNECTIONS
+# -----------------------------
 desktop_remmina_connections:
   - name: "blue"
     group: "Windows"

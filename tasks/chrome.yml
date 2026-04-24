@@ -1,27 +1,33 @@
 ---
-- name: Check if Google Chrome is installed
-  ansible.builtin.stat:
-    path: /usr/bin/google-chrome
-  register: chrome_binary
-
-- name: Download Google Chrome package
-  ansible.builtin.get_url:
-    url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    dest: /tmp/google-chrome-stable_current_amd64.deb
-    mode: "0644"
-  when:
-    - ansible_os_family == "Debian"
-    - not chrome_binary.stat.exists
-
-- name: Install Google Chrome
-  ansible.builtin.apt:
-    deb: /tmp/google-chrome-stable_current_amd64.deb
-  when:
-    - ansible_os_family == "Debian"
-    - not chrome_binary.stat.exists
-
-- name: Remove downloaded Chrome package
+- name: Remove old downloaded Chrome package
   ansible.builtin.file:
     path: /tmp/google-chrome-stable_current_amd64.deb
     state: absent
-  when: ansible_os_family == "Debian"
+
+- name: Ensure apt keyrings directory exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install Google Chrome signing key
+  ansible.builtin.get_url:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    dest: /etc/apt/keyrings/google-linux-signing-key.asc
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Add Google Chrome apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-linux-signing-key.asc] http://dl.google.com/linux/chrome/deb/ stable main"
+    filename: google-chrome
+    state: present
+    update_cache: true
+
+- name: Install Google Chrome stable
+  ansible.builtin.apt:
+    name: google-chrome-stable
+    state: present

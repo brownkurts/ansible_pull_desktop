@@ -1,35 +1,46 @@
 ---
-- name: Set GTK theme
+- name: Set GNOME desktop settings
   become: true
   become_user: "{{ desktop_username }}"
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "'Yaru-dark'"
+  environment:
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ desktop_user_uid | default(1000) }}/bus"
+  block:
+    - name: Set GTK theme
+      community.general.dconf:
+        key: "/org/gnome/desktop/interface/gtk-theme"
+        value: "'Yaru-dark'"
 
-- name: Set icon theme
-  become: true
-  become_user: "{{ desktop_username }}"
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/icon-theme"
-    value: "'Yaru'"
+    - name: Set icon theme
+      community.general.dconf:
+        key: "/org/gnome/desktop/interface/icon-theme"
+        value: "'Yaru'"
 
-- name: Set color scheme to prefer dark
-  become: true
-  become_user: "{{ desktop_username }}"
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/color-scheme"
-    value: "'prefer-dark'"
+    - name: Set color scheme to prefer dark
+      community.general.dconf:
+        key: "/org/gnome/desktop/interface/color-scheme"
+        value: "'prefer-dark'"
 
-- name: Set Dock position to bottom
-  become: true
-  become_user: "{{ desktop_username }}"
-  community.general.dconf:
-    key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
-    value: "'BOTTOM'"
+    - name: Set Dock position to bottom
+      community.general.dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
+        value: "'BOTTOM'"
 
-- name: Set wallpaper scaling to stretched
-  become: true
-  become_user: "{{ desktop_username }}"
-  community.general.dconf:
-    key: "/org/gnome/desktop/background/picture-options"
-    value: "'stretched'"
+    - name: Set wallpaper image
+      community.general.dconf:
+        key: "/org/gnome/desktop/background/picture-uri"
+        value: "'file://{{ desktop_wallpaper_dest }}'"
+
+    - name: Set dark wallpaper image
+      community.general.dconf:
+        key: "/org/gnome/desktop/background/picture-uri-dark"
+        value: "'file://{{ desktop_wallpaper_dest }}'"
+
+    - name: Set wallpaper scaling to zoom
+      community.general.dconf:
+        key: "/org/gnome/desktop/background/picture-options"
+        value: "'zoom'"
+
+    - name: Set GNOME favorite apps
+      community.general.dconf:
+        key: "/org/gnome/shell/favorite-apps"
+        value: "{{ desktop_favorite_apps | to_json }}"
